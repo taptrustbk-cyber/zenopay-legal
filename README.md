@@ -1,2 +1,3 @@
 # zenopay-legal
-ZenoPay Wallet – Privacy Policy and Terms of Use
+# Privacy Policy for ZenoPay Wallet
+
