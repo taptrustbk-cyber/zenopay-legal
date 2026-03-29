@@ -1,198 +1,454 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZenoPay Wallet – Terms & Conditions</title>
+import React, { useRef } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Platform,
+  Linking,
+} from 'react-native';
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
-<style>
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    max-width: 900px;
-    margin: auto;
-    padding: 30px;
-    line-height: 1.7;
-    background-color: #f9fafb;
-    color: #111827;
+const LAST_UPDATED = 'March 30, 2026';
+const CONTACT_EMAIL = 'info@zenopay.bond';
+
+export default function TermsConditionsScreen() {
+  const router = useRouter();
+  const goingBackRef = useRef(false);
+
+  const goBackSafe = () => {
+    if (goingBackRef.current) return;
+    goingBackRef.current = true;
+    router.back();
+    setTimeout(() => {
+      goingBackRef.current = false;
+    }, 700);
+  };
+
+  const openEmail = async () => {
+    const url = `mailto:${CONTACT_EMAIL}`;
+    try {
+      await Linking.openURL(url);
+    } catch {}
+  };
+
+  const renderSectionTitle = (num: number, title: string) => (
+    <Text style={styles.sectionTitle}>
+      {num}. {title}
+    </Text>
+  );
+
+  const renderBullet = (text: string, key: string) => (
+    <View key={key} style={styles.bulletRow}>
+      <Text style={styles.bulletDot}>•</Text>
+      <Text style={styles.bulletItem}>{text}</Text>
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      <LinearGradient
+        colors={['#F8FAFC', '#EEF4FF', '#F8FAFC']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradient}
+      >
+        <View style={styles.topGlowOne} />
+        <View style={styles.topGlowTwo} />
+
+        <View style={styles.header}>
+          <TouchableOpacity onPress={goBackSafe} style={styles.backButton} activeOpacity={0.85}>
+            <Ionicons name="arrow-back" size={22} color="#1D4ED8" />
+          </TouchableOpacity>
+
+          <Text style={styles.headerTitle}>Terms & Conditions</Text>
+
+          <View style={styles.headerSpacer} />
+        </View>
+
+        <ScrollView
+          style={styles.content}
+          contentContainerStyle={styles.contentContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          <LinearGradient
+            colors={['#2563EB', '#1D4ED8', '#1E40AF']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.heroCard}
+          >
+            <View style={styles.heroGlowOne} />
+            <View style={styles.heroGlowTwo} />
+
+            <View style={styles.heroIconWrap}>
+              <Ionicons name="document-text-outline" size={28} color="#FFFFFF" />
+            </View>
+
+            <Text style={styles.mainTitle}>Terms & Conditions</Text>
+            <Text style={styles.lastUpdated}>Last updated: {LAST_UPDATED}</Text>
+          </LinearGradient>
+
+          <View style={styles.card}>
+            <View style={styles.section}>
+              <Text style={styles.introText}>
+                Welcome to ZenoPay. By creating an account or using the app, you
+                agree to these Terms & Conditions. Please read them carefully.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(1, 'Acceptance of Terms')}
+              {renderBullet('By creating an account or using the app, you agree to these Terms & Conditions.', '1-1')}
+              {renderBullet('You must be at least 18 years old to use ZenoPay.', '1-2')}
+              {renderBullet('You agree to provide accurate and complete information.', '1-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(2, 'Account Registration and Security')}
+              {renderBullet('You are responsible for keeping your login details and password secure.', '2-1')}
+              {renderBullet('You must notify us if you believe your account has been accessed without permission.', '2-2')}
+              {renderBullet('Certain services or features may be limited to one personal account per user.', '2-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(3, 'Services Available in the App')}
+              {renderBullet('ZenoPay may provide wallet-related services such as deposit, withdrawal, transfer, receive, and transaction history.', '3-1')}
+              {renderBullet('The app may also include additional services or product features such as mobile shop, gift cards, top-up cards, and internal virtual card tools.', '3-2')}
+              {renderBullet('Some services, features, prices, or payment methods may vary depending on account status, region, availability, or app updates.', '3-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(4, 'Profile and Account Information')}
+              {renderBullet('You may provide details such as your full name, email, city, country, phone number, date of birth, and profile photo.', '4-1')}
+              {renderBullet('You are responsible for making sure the information you submit is correct and up to date.', '4-2')}
+              {renderBullet('You must not use false, misleading, or another person’s information.', '4-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(5, 'Payments, Wallet, and Fees')}
+              <Text style={styles.sectionText}>
+                Some services may include fees, payment conditions, or limits
+                shown inside the app.
+              </Text>
+              {renderBullet('You are responsible for reviewing payment details before confirming any action.', '5-1')}
+              {renderBullet('Completed wallet actions or purchases may be final unless otherwise stated in the app or required by law.', '5-2')}
+              {renderBullet('Balances, prices, availability, and fees may change from time to time.', '5-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(6, 'Virtual Card')}
+              {renderBullet('ZenoPay may provide an internal virtual card feature for supported services.', '6-1')}
+              {renderBullet('Virtual card creation may include a one-time fee if shown inside the app.', '6-2')}
+              {renderBullet('Certain users may be limited to one virtual card per account.', '6-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(7, 'Orders and Product Services')}
+              {renderBullet('Product names, images, prices, stock, and availability may change or be updated inside the app.', '7-1')}
+              {renderBullet('You are responsible for checking product or order details before confirming a purchase.', '7-2')}
+              {renderBullet('Orders may be reviewed, delayed, completed, or cancelled depending on availability, payment status, account status, or safety checks.', '7-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(8, 'Location and City Suggestion')}
+              <Text style={styles.sectionText}>
+                If you allow location access, the app may use it only to help
+                suggest your city in supported parts of the app. You may also
+                manually enter your city where available.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(9, 'Account Protection and Safety Checks')}
+              {renderBullet('To help protect accounts and reduce misuse, we may request additional information such as selfie images or identity documents in some situations.', '9-1')}
+              {renderBullet('Submitting additional information does not guarantee approval, feature access, or uninterrupted service.', '9-2')}
+              {renderBullet('You must not submit false, edited, or misleading information.', '9-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(10, 'Prohibited Activities')}
+              {renderBullet('You must not use the app for fraud, abuse, unlawful activity, or attempts to bypass safety protections.', '10-1')}
+              {renderBullet('You must not interfere with the app, servers, payment flows, security systems, or other users.', '10-2')}
+              {renderBullet('You must not misuse promotions, balances, orders, or system errors.', '10-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(11, 'Suspension, Restriction, and Termination')}
+              {renderBullet('We may suspend, restrict, review, or close accounts when suspicious, unsafe, abusive, or policy-violating activity is detected.', '11-1')}
+              {renderBullet('We may also limit access to some features while a review or security check is in progress.', '11-2')}
+              {renderBullet('Some records may be retained for operational, support, safety, or legal reasons.', '11-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(12, 'Third-Party Services')}
+              {renderBullet('Some app features may connect to third-party services or providers.', '12-1')}
+              {renderBullet('Those services may have their own rules, privacy policies, availability, and limitations.', '12-2')}
+              {renderBullet('We are not responsible for interruptions, changes, or losses caused by third-party services beyond our reasonable control.', '12-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(13, 'Limitation of Liability')}
+              {renderBullet('We aim to provide a reliable service, but we do not guarantee the app will always be uninterrupted, error-free, or available at all times.', '13-1')}
+              {renderBullet('To the extent permitted by law, ZenoPay is not responsible for indirect or unexpected losses caused by outages, delays, external providers, user mistakes, or events outside our reasonable control.', '13-2')}
+              {renderBullet('Your use of the app is at your own responsibility, subject to applicable law.', '13-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(14, 'Privacy')}
+              {renderBullet('Your use of the app is also subject to our Privacy Policy.', '14-1')}
+              {renderBullet('By using the app, you agree to how information is collected, used, and protected as described in the Privacy Policy.', '14-2')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(15, 'Changes to These Terms')}
+              {renderBullet('We may update these Terms & Conditions from time to time.', '15-1')}
+              {renderBullet('If updated, the latest version will appear in the app or on the official page with a revised last updated date.', '15-2')}
+              {renderBullet('Your continued use of the app after changes means you accept the updated terms.', '15-3')}
+            </View>
+
+            <View style={styles.section}>
+              {renderSectionTitle(16, 'Contact and Support')}
+
+              <TouchableOpacity style={styles.supportBox} activeOpacity={0.85} onPress={openEmail}>
+                <View style={styles.supportIcon}>
+                  <Ionicons name="mail-outline" size={18} color="#2563EB" />
+                </View>
+
+                <View style={styles.supportTextWrap}>
+                  <Text style={styles.supportText}>Support Email</Text>
+                  <Text style={styles.supportSubText}>{CONTACT_EMAIL}</Text>
+                </View>
+
+                <Ionicons name="chevron-forward" size={18} color="#94A3B8" />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{ height: 28 }} />
+        </ScrollView>
+      </LinearGradient>
+    </View>
+  );
 }
-h1 {
-    color: #16A34A;
-    border-bottom: 3px solid #16A34A;
-    padding-bottom: 10px;
-}
-h2 {
-    color: #16A34A;
-    margin-top: 30px;
-}
-.section {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
-}
-ul {
-    margin-left: 20px;
-}
-.footer {
-    margin-top: 40px;
-    font-size: 14px;
-    color: #6b7280;
-    text-align: center;
-}
-</style>
-</head>
 
-<body>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F8FAFC',
+  },
 
-<h1>ZenoPay Wallet – Terms & Conditions</h1>
-<p><strong>Last Updated:</strong> January 2025</p>
+  gradient: {
+    flex: 1,
+  },
 
-<div class="section">
-<p>Welcome to ZenoPay Wallet. By accessing or using our mobile application and services, you agree to be bound by these Terms and Conditions. Please read them carefully.</p>
-</div>
+  topGlowOne: {
+    position: 'absolute',
+    width: 220,
+    height: 220,
+    borderRadius: 110,
+    backgroundColor: 'rgba(37,99,235,0.08)',
+    top: -40,
+    left: -70,
+  },
+  topGlowTwo: {
+    position: 'absolute',
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: 'rgba(37,99,235,0.06)',
+    top: 90,
+    right: -50,
+  },
 
-<div class="section">
-<h2>1. Acceptance of Terms</h2>
-<ul>
-<li>By creating an account, you accept these terms.</li>
-<li>You must be at least 18 years old to use our services.</li>
-<li>You agree to provide accurate and complete information.</li>
-</ul>
-</div>
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: Platform.OS === 'ios' ? 54 : 42,
+    paddingBottom: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: '#D9E5F6',
+  },
+  backButton: {
+    width: 42,
+    height: 42,
+    borderRadius: 14,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#D9E5F6',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#7DA8E6',
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: '900',
+    color: '#0F172A',
+    textAlign: 'center',
+  },
+  headerSpacer: {
+    width: 42,
+    height: 42,
+  },
 
-<div class="section">
-<h2>2. Account Registration</h2>
-<ul>
-<li>You are responsible for maintaining the security of your account.</li>
-<li>Notify us immediately of any unauthorized access.</li>
-<li>One account per person is allowed.</li>
-</ul>
-</div>
+  content: {
+    flex: 1,
+  },
+  contentContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 18,
+    paddingBottom: 10,
+  },
 
-<div class="section">
-<h2>3. Services Provided</h2>
-<ul>
-<li>Digital wallet for managing funds.</li>
-<li>Marketplace for purchasing cards, phones, and travel bookings.</li>
-</ul>
-</div>
+  heroCard: {
+    borderRadius: 28,
+    padding: 22,
+    marginBottom: 16,
+    overflow: 'hidden',
+    alignItems: 'center',
+    shadowColor: '#7DA8E6',
+    shadowOpacity: 0.1,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 4,
+  },
+  heroGlowOne: {
+    position: 'absolute',
+    width: 190,
+    height: 190,
+    borderRadius: 95,
+    backgroundColor: 'rgba(255,255,255,0.12)',
+    right: -30,
+    top: -45,
+  },
+  heroGlowTwo: {
+    position: 'absolute',
+    width: 170,
+    height: 170,
+    borderRadius: 85,
+    backgroundColor: 'rgba(255,255,255,0.10)',
+    left: -50,
+    bottom: -75,
+  },
+  heroIconWrap: {
+    width: 68,
+    height: 68,
+    borderRadius: 22,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.18)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 14,
+  },
+  mainTitle: {
+    fontSize: 24,
+    fontWeight: '900',
+    textAlign: 'center',
+    color: '#FFFFFF',
+  },
+  lastUpdated: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginTop: 8,
+    color: 'rgba(255,255,255,0.88)',
+    fontWeight: '700',
+  },
 
-<div class="section">
-<h2>4. User Responsibilities</h2>
-<ul>
-<li>Comply with all applicable laws and regulations.</li>
-<li>Do not use our services for illegal activities.</li>
-<li>Do not attempt to manipulate or defraud the system.</li>
-</ul>
-</div>
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: '#D9E5F6',
+    shadowColor: '#7DA8E6',
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
+  },
 
-<div class="section">
-<h2>5. Fees and Payments</h2>
-<p>Fees may apply to certain transactions. We reserve the right to change fees with notice.</p>
-<ul>
-<li>Transaction fees are disclosed before confirmation.</li>
-<li>All payments are final and non-refundable unless otherwise stated.</li>
-<li>You are responsible for any applicable taxes.</li>
-</ul>
-<p>Payment methods may include bank transfers, cards, and cryptocurrencies.</p>
-</div>
+  section: {
+    marginBottom: 22,
+  },
+  introText: {
+    fontSize: 14.5,
+    lineHeight: 24,
+    color: '#0F172A',
+    fontWeight: '700',
+  },
+  sectionTitle: {
+    fontSize: 17,
+    fontWeight: '900',
+    marginBottom: 10,
+    color: '#0F172A',
+  },
+  sectionText: {
+    fontSize: 14,
+    lineHeight: 23,
+    color: '#334155',
+    fontWeight: '700',
+  },
 
-<div class="section">
-<h2>6. Prohibited Activities</h2>
-<ul>
-<li>Money laundering or terrorist financing.</li>
-<li>Fraudulent transactions.</li>
-<li>Intellectual property infringement.</li>
-</ul>
-</div>
+  bulletRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginTop: 7,
+  },
+  bulletDot: {
+    fontSize: 14,
+    lineHeight: 24,
+    color: '#0F172A',
+    marginRight: 8,
+  },
+  bulletItem: {
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 24,
+    color: '#0F172A',
+    fontWeight: '700',
+  },
 
-<div class="section">
-<h2>7. Account Suspension & Termination</h2>
-<ul>
-<li>We may suspend or terminate your account for violating these terms.</li>
-<li>You may close your account at any time.</li>
-<li>Upon termination, outstanding balances will be handled according to our policy.</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>8. Limitation of Liability</h2>
-<ul>
-<li>We are not liable for indirect, incidental, or consequential damages.</li>
-<li>Liability is limited to fees paid in the past 12 months.</li>
-<li>We do not guarantee uninterrupted or error-free service.</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>9. Intellectual Property</h2>
-<ul>
-<li>All content and trademarks are owned by ZenoPay or licensors.</li>
-<li>You may not reproduce or distribute content without permission.</li>
-<li>User-generated content remains your property, but you grant us a usage license.</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>10. Dispute Resolution</h2>
-<p>Any disputes will be resolved through arbitration.</p>
-<ul>
-<li>Governed by the laws of [Jurisdiction].</li>
-<li>Arbitration conducted in [Location].</li>
-<li>Class-action lawsuits are waived.</li>
-<li>Small claims court disputes are allowed.</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>11. Changes to Terms</h2>
-<ul>
-<li>We may modify these terms at any time.</li>
-<li>Continued use constitutes acceptance of changes.</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>12. Third-Party Services</h2>
-<p>Our app integrates with third-party services for payments and other features.</p>
-<ul>
-<li>We are not responsible for third-party service failures.</li>
-<li>Third-party privacy policies govern their data practices.</li>
-<li>We do not endorse third-party products or services.</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>13. Privacy</h2>
-<p>Your use of our services is governed by our Privacy Policy.</p>
-</div>
-
-<div class="section">
-<h2>Platform Notice</h2>
-<ul>
-<li>ZenoPay is a digital wallet platform. We are not a bank.</li>
-<li>The ZenoPay virtual card is for internal use only within the ZenoPay system.</li>
-<li>Funds stored are not bank deposits and are not covered by deposit insurance.</li>
-<li>Card creation fee: $25.</li>
-<li>Accounts may be suspended in case of suspicious activity.</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Severability</h2>
-<p>If any provision is found unenforceable, remaining provisions remain valid.</p>
-</div>
-
-<div class="section">
-<h2>Support</h2>
-<p>Email: info@zenopay.bond</p>
-<p>We aim to respond within 48 hours.</p>
-</div>
-
-<div class="footer">
-© 2025 ZenoPay Wallet. All Rights Reserved.
-</div>
-
-</body>
-</html>
+  supportBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: '#EAF2FF',
+    borderWidth: 1,
+    borderColor: '#D9E5F6',
+  },
+  supportIcon: {
+    width: 38,
+    height: 38,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#D9E5F6',
+    marginRight: 12,
+  },
+  supportTextWrap: {
+    flex: 1,
+  },
+  supportText: {
+    fontSize: 14,
+    fontWeight: '900',
+    color: '#0F172A',
+  },
+  supportSubText: {
+    marginTop: 4,
+    fontSize: 13,
+    fontWeight: '800',
+    color: '#2563EB',
+  },
+});
