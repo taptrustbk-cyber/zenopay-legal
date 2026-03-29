@@ -1,431 +1,383 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Platform,
-  Linking,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZenoPay Privacy Policy</title>
+  <meta name="description" content="ZenoPay Privacy Policy" />
+  <style>
+    :root {
+      --bg-1: #f8fbff;
+      --bg-2: #eef4ff;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-deep: #1e40af;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: #d9e5f6;
+      --card: #ffffff;
+      --soft: #eaf2ff;
+      --shadow: 0 12px 30px rgba(37, 99, 235, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+    }
 
-const LAST_UPDATED = 'March 30, 2026';
-const CONTACT_EMAIL = 'info@zenopay.bond';
+    * {
+      box-sizing: border-box;
+    }
 
-export default function PrivacyPolicyScreen() {
-  const router = useRouter();
+    html {
+      scroll-behavior: smooth;
+    }
 
-  const openEmail = async () => {
-    const url = `mailto:${CONTACT_EMAIL}`;
-    try {
-      await Linking.openURL(url);
-    } catch {}
-  };
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(37, 99, 235, 0.06), transparent 22%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2), var(--bg-1));
+      line-height: 1.7;
+    }
 
-  const renderBullet = (text: string, index: number) => (
-    <View key={index} style={styles.bulletRow}>
-      <Text style={styles.bulletDot}>•</Text>
-      <Text style={styles.bulletText}>{text}</Text>
-    </View>
-  );
+    .container {
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+    }
 
-  const section1Items = [
-    'Account information such as your full name, email address, phone number, city, country, date of birth, and other details you provide when creating or updating your account.',
-    'Profile information such as your avatar, profile photo, and any information you choose to add inside the app.',
-    'Wallet and transaction information such as deposits, withdrawals, transfers, balances, and transaction history.',
-    'Order and purchase information related to products or services available in the app, including mobile shop orders, gift cards, top-up cards, and virtual card creation.',
-    'Account protection information such as ID images, selfie images, or other verification details when required for security, fraud prevention, or account review.',
-    'Support and communication information when you contact us, request help, reset your password, or use account recovery features.',
-    'Location information only when you allow it, for example to help suggest your city in supported pages of the app.',
-  ];
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark), var(--primary-deep));
+      color: #fff;
+      padding: 34px 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-bottom: 18px;
+    }
 
-  const section2Items = [
-    'To create, manage, and protect your account.',
-    'To provide wallet features and process account activity.',
-    'To process purchases, orders, and related services.',
-    'To display account details, balances, and transaction history inside the app.',
-    'To protect users, review suspicious activity, and reduce fraud or misuse.',
-    'To support login verification, password reset, and account recovery.',
-    'To improve app performance, reliability, security, and user experience.',
-    'To respond to support requests and send important service-related updates.',
-  ];
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.10);
+      pointer-events: none;
+    }
 
-  return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={['#F8FAFC', '#EEF4FF', '#F8FAFC']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.gradient}
-      >
-        <View style={styles.topGlowOne} />
-        <View style={styles.topGlowTwo} />
+    .hero::before {
+      width: 220px;
+      height: 220px;
+      top: -70px;
+      right: -60px;
+    }
 
-        <View style={styles.header}>
-          <TouchableOpacity
-            onPress={() => router.back()}
-            style={styles.backButton}
-            activeOpacity={0.85}
-          >
-            <Ionicons name="arrow-back" size={22} color="#1D4ED8" />
-          </TouchableOpacity>
+    .hero::after {
+      width: 170px;
+      height: 170px;
+      left: -50px;
+      bottom: -70px;
+    }
 
-          <Text style={styles.headerTitle} numberOfLines={1}>
-            Privacy Policy
-          </Text>
+    .icon-wrap {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 16px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
 
-          <View style={styles.headerSpacer} />
-        </View>
+    .hero h1 {
+      margin: 0;
+      font-size: 31px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
 
-        <ScrollView
-          style={styles.content}
-          contentContainerStyle={styles.contentContainer}
-          showsVerticalScrollIndicator={false}
-        >
-          <LinearGradient
-            colors={['#2563EB', '#1D4ED8', '#1E40AF']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.heroCard}
-          >
-            <View style={styles.heroGlowOne} />
-            <View style={styles.heroGlowTwo} />
+    .hero p {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 15px;
+      font-weight: 700;
+    }
 
-            <View style={styles.heroIconWrap}>
-              <Ionicons name="shield-checkmark-outline" size={28} color="#FFFFFF" />
-            </View>
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: var(--shadow);
+    }
 
-            <Text style={styles.heroTitle}>Privacy Policy</Text>
-            <Text style={styles.heroSub}>Last updated: {LAST_UPDATED}</Text>
-          </LinearGradient>
+    .intro {
+      font-size: 15.5px;
+      color: var(--text);
+      font-weight: 700;
+      margin: 0 0 18px;
+    }
 
-          <View style={styles.card}>
-            <Text style={styles.introText}>
-              This Privacy Policy explains how ZenoPay collects, uses, stores,
-              and protects information when you use the app and related services.
-            </Text>
+    .section {
+      margin-top: 22px;
+    }
 
-            <Text style={styles.sectionTitle}>1. Information We Collect</Text>
-            <Text style={styles.sectionText}>
-              We collect information needed to provide app features, protect
-              accounts, process wallet activity, and improve service quality.
-            </Text>
-            {section1Items.map(renderBullet)}
+    .section h2 {
+      margin: 0 0 10px;
+      font-size: 21px;
+      line-height: 1.35;
+      font-weight: 800;
+      color: var(--text);
+    }
 
-            <Text style={styles.sectionTitle}>2. How We Use Information</Text>
-            <Text style={styles.sectionText}>
-              We use information only for purposes related to operating,
-              securing, maintaining, and improving the app.
-            </Text>
-            {section2Items.map(renderBullet)}
+    .section p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
 
-            <Text style={styles.sectionTitle}>3. Location Information</Text>
-            <Text style={styles.sectionText}>
-              If you allow location access, ZenoPay may use it only to help
-              suggest or display your city in supported parts of the app. You
-              may still manually enter your city where available.
-            </Text>
+    ul {
+      margin: 10px 0 0 0;
+      padding-left: 22px;
+    }
 
-            <Text style={styles.sectionTitle}>4. Data Sharing</Text>
-            <Text style={styles.sectionText}>
-              We do not sell your personal information. Information may be
-              processed by secure service providers or internal admin tools only
-              when needed to operate the app, support users, maintain security,
-              store account data, or process orders and wallet activity.
-            </Text>
+    li {
+      margin: 8px 0;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+    }
 
-            <Text style={styles.sectionTitle}>5. Data Security</Text>
-            <Text style={styles.sectionText}>
-              We use reasonable technical and organizational measures to help
-              protect your information and reduce unauthorized access, misuse,
-              or loss. No system can guarantee absolute security.
-            </Text>
+    .contact-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      padding: 15px 16px;
+      border-radius: var(--radius-md);
+      background: var(--soft);
+      border: 1px solid var(--line);
+    }
 
-            <Text style={styles.sectionTitle}>6. Data Retention</Text>
-            <Text style={styles.sectionText}>
-              We keep information for as long as needed to operate the app,
-              maintain records, protect accounts, resolve disputes, meet legal
-              obligations, and improve service reliability.
-            </Text>
+    .contact-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
 
-            <Text style={styles.sectionTitle}>7. Your Choices</Text>
-            <Text style={styles.sectionText}>
-              You may review or update certain account details inside the app.
-              You may also contact support regarding account information,
-              privacy-related requests, or security concerns.
-            </Text>
+    .contact-content {
+      flex: 1;
+      min-width: 220px;
+    }
 
-            <Text style={styles.sectionTitle}>8. Third-Party Services</Text>
-            <Text style={styles.sectionText}>
-              Some features may rely on trusted external services such as
-              hosting, authentication, storage, notifications, or infrastructure
-              providers. These services may process information only as needed
-              to support app functionality.
-            </Text>
+    .contact-label {
+      display: block;
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
 
-            <Text style={styles.sectionTitle}>9. Children</Text>
-            <Text style={styles.sectionText}>
-              ZenoPay is intended for users who are at least 18 years old.
-            </Text>
+    .contact-email {
+      color: var(--primary);
+      font-weight: 800;
+      text-decoration: none;
+      word-break: break-word;
+    }
 
-            <Text style={styles.sectionTitle}>10. Changes to This Policy</Text>
-            <Text style={styles.sectionText}>
-              We may update this Privacy Policy from time to time. When updated,
-              the latest version will appear in the app or on the official page
-              with a revised last updated date.
-            </Text>
+    .footer-note {
+      text-align: center;
+      color: #64748b;
+      font-size: 13px;
+      margin-top: 18px;
+    }
 
-            <Text style={styles.sectionTitle}>11. Contact Us</Text>
-            <Text style={styles.sectionText}>
-              If you have questions about this Privacy Policy or your
-              information, please contact us.
-            </Text>
+    @media (max-width: 640px) {
+      .container {
+        padding: 16px 12px 40px;
+      }
 
-            <TouchableOpacity
-              style={styles.contactBox}
-              activeOpacity={0.85}
-              onPress={openEmail}
-            >
-              <View style={styles.contactIcon}>
-                <Ionicons name="mail-outline" size={18} color="#2563EB" />
-              </View>
+      .hero {
+        padding: 28px 18px;
+        border-radius: 22px;
+      }
 
-              <View style={styles.contactTextWrap}>
-                <Text style={styles.contactLabel}>Support Email</Text>
-                <Text style={styles.contactEmail}>{CONTACT_EMAIL}</Text>
-              </View>
+      .hero h1 {
+        font-size: 26px;
+      }
 
-              <Ionicons name="chevron-forward" size={18} color="#94A3B8" />
-            </TouchableOpacity>
-          </View>
+      .card {
+        border-radius: 20px;
+        padding: 18px 16px;
+      }
 
-          <View style={{ height: 28 }} />
-        </ScrollView>
-      </LinearGradient>
-    </View>
-  );
-}
+      .section h2 {
+        font-size: 18px;
+      }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8FAFC',
-  },
+      li,
+      .section p,
+      .intro {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <div class="icon-wrap">🛡️</div>
+      <h1>Privacy Policy</h1>
+      <p>Last updated: March 30, 2026</p>
+    </section>
 
-  gradient: {
-    flex: 1,
-  },
+    <section class="card">
+      <p class="intro">
+        This Privacy Policy explains how ZenoPay collects, uses, stores, and protects
+        information when you use the app and related services.
+      </p>
 
-  topGlowOne: {
-    position: 'absolute',
-    width: 220,
-    height: 220,
-    borderRadius: 110,
-    backgroundColor: 'rgba(37,99,235,0.08)',
-    top: -40,
-    left: -70,
-  },
-  topGlowTwo: {
-    position: 'absolute',
-    width: 180,
-    height: 180,
-    borderRadius: 90,
-    backgroundColor: 'rgba(37,99,235,0.06)',
-    top: 90,
-    right: -50,
-  },
+      <div class="section">
+        <h2>1. Information We Collect</h2>
+        <p>
+          We collect information needed to provide app features, protect accounts,
+          process wallet activity, and improve service quality.
+        </p>
+        <ul>
+          <li>Account information such as your full name, email address, phone number, city, country, date of birth, and other details you provide when creating or updating your account.</li>
+          <li>Profile information such as your avatar, profile photo, and any information you choose to add inside the app.</li>
+          <li>Wallet and transaction information such as deposits, withdrawals, transfers, balances, and transaction history.</li>
+          <li>Order and purchase information related to products or services available in the app, including mobile shop orders, gift cards, top-up cards, and virtual card creation.</li>
+          <li>Account protection information such as ID images, selfie images, or other verification details when required for security, fraud prevention, or account review.</li>
+          <li>Support and communication information when you contact us, request help, reset your password, or use account recovery features.</li>
+          <li>Location information only when you allow it, for example to help suggest your city in supported pages of the app.</li>
+        </ul>
+      </div>
 
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingTop: Platform.OS === 'ios' ? 54 : 42,
-    paddingBottom: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: '#D9E5F6',
-  },
-  backButton: {
-    width: 42,
-    height: 42,
-    borderRadius: 14,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#D9E5F6',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#7DA8E6',
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 3,
-  },
-  headerTitle: {
-    flex: 1,
-    fontSize: 20,
-    fontWeight: '900',
-    color: '#0F172A',
-    textAlign: 'center',
-    marginHorizontal: 10,
-  },
-  headerSpacer: {
-    width: 42,
-    height: 42,
-  },
+      <div class="section">
+        <h2>2. How We Use Information</h2>
+        <p>
+          We use information only for purposes related to operating, securing,
+          maintaining, and improving the app.
+        </p>
+        <ul>
+          <li>To create, manage, and protect your account.</li>
+          <li>To provide wallet features and process account activity.</li>
+          <li>To process purchases, orders, and related services.</li>
+          <li>To display account details, balances, and transaction history inside the app.</li>
+          <li>To protect users, review suspicious activity, and reduce fraud or misuse.</li>
+          <li>To support login verification, password reset, and account recovery.</li>
+          <li>To improve app performance, reliability, security, and user experience.</li>
+          <li>To respond to support requests and send important service-related updates.</li>
+        </ul>
+      </div>
 
-  content: {
-    flex: 1,
-  },
-  contentContainer: {
-    paddingHorizontal: 20,
-    paddingTop: 18,
-    paddingBottom: 10,
-  },
+      <div class="section">
+        <h2>3. Location Information</h2>
+        <p>
+          If you allow location access, ZenoPay may use it only to help suggest or
+          display your city in supported parts of the app. You may still manually enter
+          your city where available.
+        </p>
+      </div>
 
-  heroCard: {
-    borderRadius: 28,
-    padding: 22,
-    marginBottom: 16,
-    overflow: 'hidden',
-    alignItems: 'center',
-    shadowColor: '#7DA8E6',
-    shadowOpacity: 0.1,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 8 },
-    elevation: 4,
-  },
-  heroGlowOne: {
-    position: 'absolute',
-    width: 190,
-    height: 190,
-    borderRadius: 95,
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    right: -30,
-    top: -45,
-  },
-  heroGlowTwo: {
-    position: 'absolute',
-    width: 170,
-    height: 170,
-    borderRadius: 85,
-    backgroundColor: 'rgba(255,255,255,0.10)',
-    left: -50,
-    bottom: -75,
-  },
-  heroIconWrap: {
-    width: 68,
-    height: 68,
-    borderRadius: 22,
-    backgroundColor: 'rgba(255,255,255,0.18)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.18)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 14,
-  },
-  heroTitle: {
-    fontSize: 24,
-    fontWeight: '900',
-    textAlign: 'center',
-    color: '#FFFFFF',
-  },
-  heroSub: {
-    fontSize: 14,
-    textAlign: 'center',
-    marginTop: 8,
-    color: 'rgba(255,255,255,0.88)',
-    fontWeight: '700',
-  },
+      <div class="section">
+        <h2>4. Data Sharing</h2>
+        <p>
+          We do not sell your personal information. Information may be processed by
+          secure service providers or internal admin tools only when needed to operate
+          the app, support users, maintain security, store account data, or process
+          orders and wallet activity.
+        </p>
+      </div>
 
-  card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 24,
-    padding: 18,
-    borderWidth: 1,
-    borderColor: '#D9E5F6',
-    shadowColor: '#7DA8E6',
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 3,
-  },
+      <div class="section">
+        <h2>5. Data Security</h2>
+        <p>
+          We use reasonable technical and organizational measures to help protect your
+          information and reduce unauthorized access, misuse, or loss. No system can
+          guarantee absolute security.
+        </p>
+      </div>
 
-  introText: {
-    fontSize: 14.5,
-    lineHeight: 24,
-    color: '#0F172A',
-    fontWeight: '700',
-    marginBottom: 18,
-  },
-  sectionTitle: {
-    fontSize: 17,
-    fontWeight: '900',
-    marginTop: 6,
-    marginBottom: 10,
-    color: '#0F172A',
-  },
-  sectionText: {
-    fontSize: 14,
-    lineHeight: 23,
-    color: '#334155',
-    fontWeight: '700',
-  },
+      <div class="section">
+        <h2>6. Data Retention</h2>
+        <p>
+          We keep information for as long as needed to operate the app, maintain
+          records, protect accounts, resolve disputes, meet legal obligations, and
+          improve service reliability.
+        </p>
+      </div>
 
-  bulletRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginTop: 7,
-  },
-  bulletDot: {
-    fontSize: 14,
-    lineHeight: 24,
-    color: '#0F172A',
-    marginRight: 8,
-  },
-  bulletText: {
-    flex: 1,
-    fontSize: 14,
-    lineHeight: 24,
-    color: '#0F172A',
-    fontWeight: '700',
-  },
+      <div class="section">
+        <h2>7. Your Choices</h2>
+        <p>
+          You may review or update certain account details inside the app. You may also
+          contact support regarding account information, privacy-related requests, or
+          security concerns.
+        </p>
+      </div>
 
-  contactBox: {
-    marginTop: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 14,
-    borderRadius: 18,
-    backgroundColor: '#EAF2FF',
-    borderWidth: 1,
-    borderColor: '#D9E5F6',
-  },
-  contactIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-    borderWidth: 1,
-    borderColor: '#D9E5F6',
-  },
-  contactTextWrap: {
-    flex: 1,
-  },
-  contactLabel: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: '#64748B',
-  },
-  contactEmail: {
-    marginTop: 2,
-    fontSize: 14,
-    fontWeight: '900',
-    color: '#2563EB',
-  },
-});
+      <div class="section">
+        <h2>8. Third-Party Services</h2>
+        <p>
+          Some features may rely on trusted external services such as hosting,
+          authentication, storage, notifications, or infrastructure providers. These
+          services may process information only as needed to support app functionality.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>9. Children</h2>
+        <p>ZenoPay is intended for users who are at least 18 years old.</p>
+      </div>
+
+      <div class="section">
+        <h2>10. Changes to This Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time. When updated, the latest
+          version will appear in the app or on the official page with a revised last
+          updated date.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>11. Contact Us</h2>
+        <p>
+          If you have questions about this Privacy Policy or your information, please
+          contact us.
+        </p>
+
+        <div class="contact-box">
+          <div class="contact-icon">✉</div>
+          <div class="contact-content">
+            <span class="contact-label">Support Email</span>
+            <a class="contact-email" href="mailto:info@zenopay.bond">info@zenopay.bond</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      © 2026 ZenoPay. All rights reserved.
+    </div>
+  </main>
+</body>
+</html>
